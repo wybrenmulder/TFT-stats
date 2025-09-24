@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TFT Set 15 Team Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/team_builder.css') }}">
+</head>
+<body>
+    <h1>TFT Set 15 Team Builder</h1>
+    <p>Click champions to add/remove from your team (max 10 units).</p>
+
+    {% for cost, champions in cost_groups.items()|sort %}
+        <div class="cost-group">
+            <div class="cost-title">{{ cost }}-Cost Units</div>
+            {% for champ_name in champions %}
+                <div class="champion" data-name="{{ champ_name }}">{{ champ_name }}</div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <div id="selected-units">
+        <h3>Selected Units:</h3>
+        <div id="unit-list"></div>
+        <button id="generate-code">Generate Team Code</button>
+        <br><br>
+        <label>Min units: <input type="number" id="min-units" value="6" min="1" max="10"></label>
+        <label>Max units: <input type="number" id="max-units" value="8" min="1" max="10"></label>
+        <button id="bravery">Bravery</button>
+        <br>
+        <label>
+            <input type="checkbox" id="weighted-random">Weighted Random
+        </label>
+
+        <div id="team-code"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/team_builder.js') }}"></script>
+</body>
+</html>

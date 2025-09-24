@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Player</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; text-align: center; }
+        form { display: inline-block; margin-top: 50px; }
+        input, button { padding: 10px; margin: 5px; font-size: 16px; }
+        button { cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>TFT History</h1>
+    <a href="{{ url_for('team_builder') }}">
+        <button>Team builder</button>
+    </a>
+    <br>
+    <form action="/search" method="post">
+        <input type="text" name="game_name" placeholder="Game Name" required>
+        <input type="text" name="tag_line" placeholder="Tag Line (e.g., 1234)" required>
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>
