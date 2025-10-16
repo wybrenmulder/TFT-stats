@@ -1,3 +1,4 @@
 pyproject.toml
 poetry.lock
 api_key.py
+/__pycache__

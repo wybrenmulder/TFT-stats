@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TFT Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+<div class="container">
+    <h1 class="mb-4">Dashboard: {{ game_name }}#{{ tag_line }}</h1>
+
+    <div class="mb-4">
+        <a href="{{ url_for('team_builder') }}" class="btn btn-secondary">Team Builder</a>
+    </div>
+
+    <h3>Recent Matches (Table)</h3>
+    {% for match in tft_matches %}
+        <h4>Match ID: {{ match.match_id }}</h4>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Summoner</th>
+                    <th>Placement</th>
+                    <th>Level</th>
+                    <th>Gold Left</th>
+                    <th>Last Round</th>
+                    <th>Total Damage</th>
+                    <th>Time Eliminated</th>
+                    <th>Traits</th>
+                    <th>Units</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set players_list = [] %}
+                {% if match.players %}
+                    {% set players_list = match.players %}
+                {% endif %}
+                {% if match.teams %}
+                    {% for team_id, team_data in match.teams.items() %}
+                        {% for player in team_data.players %}
+                            {% set _ = players_list.append(player) %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+                {% for player in players_list %}
+                    <tr>
+                        <td>{{ player.summoner_name }}</td>
+                        <td>{{ player.placement }}</td>
+                        <td>{{ player.level }}</td>
+                        <td>{{ player.gold_left }}</td>
+                        <td>{{ player.last_round }}</td>
+                        <td>{{ player.total_damage_to_players }}</td>
+                        <td>{{ player.time_eliminated }}</td>
+                        <td>
+                            {% for trait in player.traits | sort(attribute='style', reverse=True) | sort(attribute='num_units', reverse=True) %}
+                                {% if trait.tier_current > 0 %}
+                                    {% set clean_name = trait.name.replace('TFT15_', '') %}
+                                    {{ TRAIT_DATA.get(clean_name, clean_name) }} ({{ trait.num_units }})<br>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for unit in player.units %}
+                                {% set display_name, cost = get_display_unit_name(unit.name) %}
+                                {{ display_name }} ★{{ unit.tier }}{% if not loop.last %}; {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

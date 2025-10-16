@@ -1,0 +1,14 @@
+{
+    "KR": ["kr", "asia"],
+    "EUW": ["euw1", "europe"],
+    "VN": ["vn", "asia"],
+    "EUNE": ["eun1", "europe"],
+    "BR": ["br1", "americas"],
+    "NA": ["na1", "americas"],
+    "LAN": ["la1", "americas"],
+    "TR": ["tr1", "europe"],
+    "LAS": ["la2", "americas"],
+    "PH": ["ph", "sea"],
+    "OCE": ["oc1", "sea"],
+    "JP": ["jp1", "asia"]
+}

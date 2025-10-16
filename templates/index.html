@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TFT Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+    <div class="container">
+        <h1 class="mb-4">TFT Summoner Lookup</h1>
+        <form id="tftForm" action="{{ url_for('dashboard') }}" method="post">
+            <div class="mb-3">
+                <label>Summoner Name:</label>
+                <input type="text" name="game_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Tagline:</label>
+                <input type="text" name="tag_line" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">View Dashboard</button>
+        </form>
+        <button id="presetButton" class="btn btn-secondary mt-3">wybo#plstn</button>
+    </div>
+
+    <script>
+        document.getElementById('presetButton').addEventListener('click', function() {
+            const form = document.getElementById('tftForm');
+            form.elements['game_name'].value = 'wybo';
+            form.elements['tag_line'].value = 'plstn';
+            form.submit();
+        });
+    </script>
+</body>
+</html>
